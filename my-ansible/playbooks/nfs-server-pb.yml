@@ -1,0 +1,6 @@
+---
+- name: Set up NFS Server and Share Directory
+  hosts: nfs  # The group for your NFS server (from inventory)
+  become: yes
+  roles:
+    - nfs_server_role

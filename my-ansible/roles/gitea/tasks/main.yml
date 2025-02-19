@@ -11,7 +11,7 @@
 
 - name: Copy tar archive to server
   ansible.builtin.copy:
-    src: /home/ubuntu/my-ansible/gitea-archieve.tar
+    src: /home/ubuntu/ansible-structure/my-ansible/gitea-archieve.tar
     dest: "{{ gitea_workdir }}/gitea-archieve.tar"
 
 - name: Extract tar archive

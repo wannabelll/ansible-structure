@@ -1,0 +1,36 @@
+---
+# tasks file for nfs_server_role
+
+- name: Install NFS server package
+  apt:
+    name: nfs-kernel-server
+    state: present
+    update_cache: yes
+
+- name: Create the shared directory
+  file:
+    path: /home/ubuntu/dir-for-web/remote/data
+    state: directory
+    owner: nobody
+    group: nogroup
+    mode: '0777'
+
+- name: Configure the exports file for the shared directory
+  lineinfile:
+    path: /etc/exports
+    line: "/home/ubuntu/dir-for-web/remote/data {{ item }}(rw,sync,no_subtree_check)"
+    create: yes
+  loop: "{{ gitea_host_names.values() }}"  # Dynamically loop over all host IPs in gitea_host_names
+
+- name: Export the shared directory
+  command: exportfs -a
+
+- name: Restart NFS server
+  service:
+    name: nfs-kernel-server
+    state: restarted
+
+#- name: Allow NFS through the firewall
+ # ufw:
+  #  rule: allow
+   # name: 'NFS'

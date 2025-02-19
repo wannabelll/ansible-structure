@@ -3,13 +3,17 @@
 dbase ansible_host=172.31.92.81
 
 [web-servers]
-web1 ansible_host=172.31.87.170
+web2 ansible_host=172.31.86.218
 
-web2 ansible_host=172.31.84.6
+web1 ansible_host=172.31.88.153
+
+
 [web3]
 
 web3 ansible_host=172.31.85.197
 
+[nfs]
+nfs-server ansible_host=172.31.89.179
 
 [all:vars]
 ansible_user=ubuntu

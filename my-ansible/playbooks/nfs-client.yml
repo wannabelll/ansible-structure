@@ -1,0 +1,30 @@
+---
+- name: Set up NFS Client on all instances
+  hosts: web-servers  # The group for your client instances (web1, web2, web3)
+  become: yes
+  tasks:
+    - name: Install NFS client package
+      apt:
+        name: nfs-common
+        state: present
+        update_cache: yes
+
+#    - name: Create a mount point for the NFS share
+ #     file:
+  #      path: /home/ubuntu/dir-for--web/remote/data
+   #     state: directory
+
+    - name: Mount the NFS shared directory
+      mount:
+        name: /home/ubuntu/dir-for--web/remote/data
+        src: "{{ nfs_server_host }}:/home/ubuntu/dir-for-web/remote/data"  # Corrected path with --web
+        fstype: nfs
+        state: mounted
+
+    - name: Ensure NFS mount persists after reboot
+      mount:
+        name: /home/ubuntu/dir-for--web/remote/data
+        src: "{{ nfs_server_host }}:/home/ubuntu/dir-for-web/remote/data"  # Corrected path with --web
+        fstype: nfs
+        opts: defaults
+        state: present
