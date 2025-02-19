@@ -1,0 +1,54 @@
+
+---
+- name: Installing MySQL and dependencies
+  package:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  loop:
+    - mysql-server
+    - mysql-client
+    - python3-mysqldb
+    - libmysqlclient-dev
+
+- name: Start and enable MySQL service
+  service:
+    name: mysql
+    state: started
+    enabled: yes
+- name: Debug mysql-paaswrd
+  debug:
+    msg: "mysql_root_password is {{ mysql_root_password }}"
+
+- name: Login as root and change authentication method to mysql_native_password
+  command: "sudo mysql -e \"ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '{{ mysql_root_password }}';\""
+  args:
+    creates: /etc/mysql/mysql.conf.d/mysqld.cnf
+
+- name: Creating MySQL user for each gitea host
+  mysql_user:
+    name: "{{ db_user }}"
+    password: "{{ db_pass }}"
+    priv: "{{ db_name }}.*:ALL"
+    host: "{{ item }}"
+    state: present
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+  loop: "{{ gitea_host_names.values() }}"  #this this dictionary
+
+- name: Creating giteadb db
+  mysql_db:
+    name: "{{ db_name }}"
+    state: present
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+
+- name: Enable remote login to MySQL
+  lineinfile:
+    path: /etc/mysql/mysql.conf.d/mysqld.cnf
+    regexp: '^bind-address'
+    line: 'bind-address = 0.0.0.0'
+    backup: yes
+  notify:
+    - Restart mysql
+

@@ -1,0 +1,21 @@
+---
+- name: Install Nginx
+  package:
+    name: nginx
+    state: present
+
+- name: Create Nginx load balancer configuration
+  template:
+    src: load_balancer.j2
+    dest: /etc/nginx/sites-available/load_balancer
+  notify:
+    - restart nginx
+
+- name: Enable Nginx site
+  command: nginx -s reload
+
+- name: Ensure Nginx is started and enabled
+  service:
+    name: nginx
+    state: started
+    enabled: yes

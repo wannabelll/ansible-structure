@@ -1,0 +1,15 @@
+[Unit]
+Description=Gitea (Git with a cup of tea)
+After=network.target
+
+[Service]
+Type=simple
+User={{ gitea_user }}
+Group={{ gitea_group }}
+WorkingDirectory={{ gitea_workdir }}
+ExecStart={{ gitea_workdir }}/gitea web --config {{ gitea_workdir }}/custom/conf/app.ini
+Restart=always
+Environment=USER={{ gitea_user }} HOME={{ gitea_home }} GITEA_WORK_DIR={{ gitea_workdir }}
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,17 @@
+db_user: "gitea"
+gitea_host_names:
+  web1: "172.31.87.170"   #web1 [0]
+  web2: "172.31.84.6"
+ # web3: "172.31.85.197"
+
+load_balancer_host: "172.31.85.197"
+db_pass: "gitea"
+db_name: "giteadb"
+mysql_root_password: "passw"
+db_host: "172.31.92.81"
+db_port: "3306"
+db_type: "mysql"
+gitea_workdir: "/home/ubuntu/dir-for--web/remote"
+gitea_user: "ubuntu" #as linux user
+gitea_group: "ubuntu"
+gitea_home: "/home/ubuntu"

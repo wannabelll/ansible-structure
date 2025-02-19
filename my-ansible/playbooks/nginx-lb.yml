@@ -1,0 +1,8 @@
+---
+- name: Install and configure Gitea and load balancer
+  hosts: web3
+  become: true
+  roles:
+ #   - mysql
+#    - gitea
+    - my-load_balancer

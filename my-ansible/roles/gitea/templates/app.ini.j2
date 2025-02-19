@@ -1,0 +1,78 @@
+APP_NAME = Gitea: Git with a cup of tea
+RUN_USER = {{ gitea_user }}
+WORK_PATH = {{ gitea_workdir }}
+RUN_MODE = prod
+
+[database]
+DB_TYPE = mysql
+HOST = {{ db_host }}:{{ db_port }}
+NAME = {{ db_name }}
+USER = {{ db_user }}
+PASSWD = {{ db_pass }}
+SCHEMA =
+SSL_MODE = disable
+PATH = {{ gitea_workdir }}/data/gitea.db
+LOG_SQL = false
+
+[repository]
+ROOT = {{ gitea_workdir }}/data/gitea-repositories
+
+[server]
+
+SSH_DOMAIN = {{ gitea_host_names[inventory_hostname] }}
+DOMAIN =  {{ gitea_host_names[inventory_hostname] }}
+HTTP_PORT = 3000
+ROOT_URL = http://{{ gitea_host_names[inventory_hostname] }}:3000/
+APP_DATA_PATH = {{ gitea_workdir }}/data
+DISABLE_SSH = false
+SSH_PORT = 22
+LFS_START_SERVER = true
+LFS_JWT_SECRET = 8IpqzW5e18Pf56-cXzPeGQFDjURzCg1paO0IUq85qkM
+OFFLINE_MODE = true
+
+[lfs]
+PATH = {{ gitea_workdir }}/data/lfs
+
+[mailer]
+ENABLED = false
+
+[service]
+REGISTER_EMAIL_CONFIRM = false
+ENABLE_NOTIFY_MAIL = false
+DISABLE_REGISTRATION = false
+ALLOW_ONLY_EXTERNAL_REGISTRATION = false
+ENABLE_CAPTCHA = false
+REQUIRE_SIGNIN_VIEW = false
+DEFAULT_KEEP_EMAIL_PRIVATE = false
+DEFAULT_ALLOW_CREATE_ORGANIZATION = true
+DEFAULT_ENABLE_TIMETRACKING = true
+NO_REPLY_ADDRESS = noreply.localhost
+
+[openid]
+ENABLE_OPENID_SIGNIN = true
+ENABLE_OPENID_SIGNUP = true
+
+[cron.update_checker]
+ENABLED = false
+
+[session]
+PROVIDER = file
+
+[log]
+MODE = console
+LEVEL = info
+ROOT_PATH = {{ gitea_workdir }}/log
+
+[repository.pull-request]
+DEFAULT_MERGE_STYLE = merge
+
+[repository.signing]
+DEFAULT_TRUST_MODEL = committer
+
+[security]
+INSTALL_LOCK = true
+INTERNAL_TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.TA98KiFbIxiBIcIqUfNPDs2NXgnitXvAB5WD9VrKoJI
+PASSWORD_HASH_ALGO = pbkdf2
+
+[oauth2]
+JWT_SECRET = GPqldCUMCBt03gGZwpQo6fy8Le6WHLlpfm0nUMtkZ-c
