@@ -1,20 +1,20 @@
 
 [db]
-dbase ansible_host=172.31.92.81
+dbase ansible_host=172.31.82.183
+
 
 [web-servers]
-web2 ansible_host=172.31.86.218
+web2 ansible_host=172.31.80.24
+web1 ansible_host=172.31.81.4
 
-web1 ansible_host=172.31.88.153
 
+[lb]
 
-[web3]
-
-web3 ansible_host=172.31.85.197
+lb ansible_host=172.31.82.15
 
 [nfs]
 nfs-server ansible_host=172.31.89.179
 
 [all:vars]
 ansible_user=ubuntu
-ansible_ssh_private_key_file=/home/ubuntu/.ssh/ansible_key.pem
+ansible_ssh_private_key_file=/home/ubuntu/.ssh/ansible-rsa

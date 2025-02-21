@@ -1,8 +1,7 @@
 ---
-- name: Install and configure Gitea and load balancer
-  hosts: web3
+- name: Configure NGINX Load Balancer
+  hosts: lb  # Define the group in your inventory file
   become: true
   roles:
- #   - mysql
-#    - gitea
     - my-load_balancer
+

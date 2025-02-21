@@ -1,21 +1,18 @@
 ---
-- name: Install Nginx
+- name: Install NGINX
   package:
     name: nginx
     state: present
 
-- name: Create Nginx load balancer configuration
+- name: Remove default NGINX site configuration
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+
+- name: Deploy custom nginx.conf
   template:
-    src: load_balancer.j2
-    dest: /etc/nginx/sites-available/load_balancer
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
   notify:
-    - restart nginx
+    - Reload NGINX
 
-- name: Enable Nginx site
-  command: nginx -s reload
-
-- name: Ensure Nginx is started and enabled
-  service:
-    name: nginx
-    state: started
-    enabled: yes

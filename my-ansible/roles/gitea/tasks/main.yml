@@ -5,18 +5,18 @@
 ---
 - name: Create destination directory if it doesn't exist
   ansible.builtin.file:
-    path: "{{ gitea_workdir }}"
+    path: "{{ gitea_workdir }}/data"
     state: directory
     mode: '0755'
 
-- name: Copy tar archive to server
+- name: Copy tar.gz archive to server
   ansible.builtin.copy:
-    src: /home/ubuntu/ansible-structure/my-ansible/gitea-archieve.tar
-    dest: "{{ gitea_workdir }}/gitea-archieve.tar"
+    src: /home/ubuntu/ansible-structure/my-ansible/gitea-archive.tar.gz
+    dest: "{{ gitea_workdir }}/gitea-archive.tar.gz"
 
-- name: Extract tar archive
+- name: Extract tar.gz archive
   ansible.builtin.unarchive:
-    src: "{{ gitea_workdir }}/gitea-archieve.tar"
+    src: "{{ gitea_workdir }}/gitea-archive.tar.gz"
     dest: "{{ gitea_workdir }}"
     remote_src: yes
 
