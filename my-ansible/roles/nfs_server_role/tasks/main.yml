@@ -7,18 +7,18 @@
     state: present
     update_cache: yes
 
-- name: Create the shared directory
+- name: Create the shared directory for repositories
   file:
-    path: /home/ubuntu/dir-for-web/remote/data
+    path: /home/ubuntu/repos
     state: directory
-    owner: nobody
-    group: nogroup
+    owner: ubuntu
+    group: ubuntu
     mode: '0777'
 
 - name: Configure the exports file for the shared directory
   lineinfile:
     path: /etc/exports
-    line: "/home/ubuntu/dir-for-web/remote/data {{ item }}(rw,sync,no_subtree_check)"
+    line: "/home/ubuntu/repos {{ item }}(rw,sync,no_subtree_check,all_squash,anonuid=1000,anongid=1000)"    #"/home/ubuntu/repos {{ item }}(rw,sync,no_subtree_check)"
     create: yes
   loop: "{{ gitea_host_names.values() }}"  # Dynamically loop over all host IPs in gitea_host_names
 
@@ -29,8 +29,3 @@
   service:
     name: nfs-kernel-server
     state: restarted
-
-#- name: Allow NFS through the firewall
- # ufw:
-  #  rule: allow
-   # name: 'NFS'

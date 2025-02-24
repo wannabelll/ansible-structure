@@ -8,7 +8,7 @@
     path: "{{ gitea_workdir }}/data"
     state: directory
     mode: '0755'
-
+  become: yes
 - name: Copy tar.gz archive to server
   ansible.builtin.copy:
     src: /home/ubuntu/ansible-structure/my-ansible/gitea-archive.tar.gz
@@ -28,7 +28,7 @@
 - name: Change ownership of extracted directories to ubuntu user
   ansible.builtin.command:
     cmd: chown -R {{ gitea_user }}:{{ gitea_group }} {{ gitea_workdir }}/data
-
+  become: yes
 - name: Create the gitea systemd service file from template
   ansible.builtin.template:
     src: templates/gitea-as-a-service.j2
