@@ -1,0 +1,1 @@
+#load_balancer_host: "{{ hostvars['lb']['ansible_host'] }}"

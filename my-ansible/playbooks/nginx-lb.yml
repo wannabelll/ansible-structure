@@ -1,7 +1,0 @@
----
-- name: Configure NGINX Load Balancer
-  hosts: lb  # Define the group in your inventory file
-  become: true
-  roles:
-    - my-load_balancer
-

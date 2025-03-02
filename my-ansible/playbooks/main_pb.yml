@@ -1,0 +1,7 @@
+
+---
+- import_playbook: mysql_pb.yml
+- import_playbook: app-gitea_pb.yml
+- import_playbook: nfs-server_pb.yml
+- import_playbook: nfs-client_pb.yml
+- import_playbook: nginx_pb.yml

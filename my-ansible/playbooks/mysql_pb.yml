@@ -1,0 +1,6 @@
+---
+- name: Setup MySQL with giteadb db and remote login
+  hosts: db
+  become: yes
+  roles:
+    - mysql_role  # Directly using the role to install and configure MySQL

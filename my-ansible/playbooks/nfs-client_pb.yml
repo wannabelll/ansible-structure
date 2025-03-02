@@ -1,0 +1,6 @@
+---
+- name: Set up NFS Client on all instances
+  hosts: web-servers  # The group for your client instances (web1, web2, web3)
+  become: yes
+  roles:
+    - nfs-client_role

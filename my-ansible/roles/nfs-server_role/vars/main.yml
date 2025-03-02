@@ -1,0 +1,3 @@
+---
+# vars file for nfs_server_role
+nfs_server_host: "{{ hostvars['nfs-server']['ansible_host'] }}"

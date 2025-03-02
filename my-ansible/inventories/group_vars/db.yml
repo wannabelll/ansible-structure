@@ -1,0 +1,8 @@
+#db_user: "gitea"
+#load_balancer_host: "{{ hostvars['lb']['ansible_host'] }}"
+#db_pass: "gitea"
+#db_name: "giteadb"
+#mysql_root_password: "passw"
+#db_host:  "{{ hostvars['dbase']['ansible_host'] }}"
+#db_port: "3306"
+#db_type: "mysql"

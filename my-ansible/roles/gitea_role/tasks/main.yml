@@ -1,0 +1,53 @@
+
+# tasks file for gitea_role
+#- name: Deploy gitea app
+ # ansible.builtin.include_tasks: "{{ playbook_dir }}/install-gitea-as-service.yml"
+
+---
+- name: Create destination directory if it doesn't exist
+  ansible.builtin.file:
+    path: "{{ gitea_workdir }}/data"
+    state: directory
+    mode: '0755'
+  become: yes
+- name: Copy tar.gz archive to server
+  ansible.builtin.copy:
+    src: /home/ubuntu/ansible-structure/my-ansible/gitea-archive.tar.gz
+    dest: "{{ gitea_workdir }}/gitea-archive.tar.gz"
+
+- name: Extract tar.gz archive
+  ansible.builtin.unarchive:
+    src: "{{ gitea_workdir }}/gitea-archive.tar.gz"
+    dest: "{{ gitea_workdir }}"
+    remote_src: yes
+
+- name: Make gitea executable
+  ansible.builtin.file:
+    path: "{{ gitea_workdir }}/gitea"
+    mode: '0755'
+
+- name: Change ownership of extracted directories to ubuntu user
+  ansible.builtin.command:
+    cmd: chown -R {{ gitea_user }}:{{ gitea_group }} {{ gitea_workdir }}/data
+  become: yes
+- name: Create the gitea systemd service file from template
+  ansible.builtin.template:
+    src: templates/gitea-as-a-service.j2
+    dest: /etc/systemd/system/gitea.service
+    mode: '0644'
+
+- name: Create the gitea app.ini configuration file from template
+  ansible.builtin.template:
+    src: templates/app.ini.j2
+    dest: "{{ gitea_workdir }}/custom/conf/app.ini"
+    mode: '0644'
+
+- name: Reload systemd to recognize the new service
+  ansible.builtin.systemd:
+    daemon_reload: yes
+
+- name: Enable and start the gitea service
+  ansible.builtin.systemd:
+    name: gitea
+    enabled: yes
+    state: started
