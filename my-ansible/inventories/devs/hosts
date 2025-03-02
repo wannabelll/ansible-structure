@@ -1,19 +1,19 @@
 
 [db]
-dbase ansible_host=172.31.84.93
+dbase ansible_host=172.31.82.165
 
 
 [web-servers]
-web2 ansible_host=172.31.85.94
-web1 ansible_host=172.31.90.11
-web3 ansible_host=172.31.81.33
+web2 ansible_host=172.31.80.32
+web1 ansible_host=172.31.86.230
+
 
 [lb]
 
-lb ansible_host=172.31.80.178
+lb ansible_host=172.31.81.94
 
 [nfs]
-nfs-server ansible_host=172.31.88.85
+nfs-server ansible_host=172.31.92.205
 
 [all:vars]
 ansible_user=ubuntu

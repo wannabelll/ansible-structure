@@ -1,2 +1,3 @@
 ---
 # defaults file for nfs_client
+nfs_server_host: "{{ hostvars['nfs-server']['ansible_host'] }}"

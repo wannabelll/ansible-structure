@@ -1,2 +1,6 @@
 ---
 # vars file for gitea_role
+gitea_workdir: "/home/ubuntu/dir-for-web/remote"
+gitea_user: "ubuntu" #as linux user
+gitea_group: "ubuntu"
+gitea_home: "/home/ubuntu"
