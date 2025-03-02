@@ -1,0 +1,18 @@
+db_user: "gitea"
+gitea_host_names:
+  web1:  "{{ hostvars['web1']['ansible_host'] }}"    
+  web2:  "{{ hostvars['web2']['ansible_host'] }}" 
+  web3:  "{{ hostvars['web3']['ansible_host'] }}"
+  web4:  "{{ hostvars['web4']['ansible_host'] }}"
+nfs_server_host: "{{ hostvars['nfs-server']['ansible_host'] }}" 
+load_balancer_host: "{{ hostvars['lb']['ansible_host'] }}"
+db_pass: "gitea"
+db_name: "giteadb"
+mysql_root_password: "passw"
+db_host:  "{{ hostvars['dbase']['ansible_host'] }}"
+db_port: "3306"
+db_type: "mysql"
+gitea_workdir: "/home/ubuntu/dir-for-web/remote"
+gitea_user: "ubuntu" #as linux user
+gitea_group: "ubuntu"
+gitea_home: "/home/ubuntu"
